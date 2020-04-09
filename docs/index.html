@@ -93,7 +93,7 @@
    </head>
    <body data-spy="scroll" data-target="#scroll_spy" data-offset="0">
       <div class="container-fluid" style="background-color:#2196F3;color:#fff;height:160px;">
-         <h1><a href="https://github.com/ggouzi/exif-api" style="color:white" target="_blank">EXIF Data API</a></h1>
+         <h1><a href="https://samisalkosuo.github.io/exif-api/" style="color:white" target="_blank">EXIF Data API</a></h1>
       </div>
       <br>
       <div class="container">
@@ -103,6 +103,7 @@
          <div class="row">
             <nav class="col-sm-2" id="scroll_spy">
                <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+                  <li><a href="#exifdata">POST /exifdata</a></li>
                   <li><a href="#upload">POST /upload</a></li>
                   <li><a href="#read_simple">GET /read/simple</a></li>
                   <li><a href="#read_full">GET /read/full</a></li>
@@ -112,12 +113,41 @@
                </ul>
             </nav>
             <div class="col-sm-10">
-                <div id="upload" class="section">
+               <div id="exifdata" class="section">
+                  <h2 >POST /exifdata/</h2>
+                     <h3>Definition</h3>
+                     <div>
+                      <p>Retrieve all EXIF data from uploaded file.  A file is passed in parameter.</p>
+                      <p>JSON output in not structured and the list of metadata is not known in advance.</p>
+                     </div>
+                     <h3>Example</h3>
+                     <div role="tabpanel" class="tab-pane fade in">
+                        <pre><code class="language-bash">curl -F "file=@test.jpeg" http://localhost:3000/exifdata</code></pre>
+                     </div>
+                     <h3>Output</h3>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active"><a href="#raw_output" aria-controls="raw_output" role="tab" data-toggle="tab" aria-expanded="true"><span class="text-success">•</span> 200 OK </a></li>
+                        <li class="nav-item"><a href="#raw_server_error" aria-controls="raw_server_error" role="tab" data-toggle="tab" aria-expanded="false"><span class="text-danger">•</span> 500 Internal Server Error </a></li>
+                     </ul>
+                     <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="raw_output">
+                           <pre><code id="rawOutput200" class="language-json"></code></pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade in" id="raw_server_error">
+                        <pre><code id="rawOutput500" class="language-json"></code></pre>
+                        </div>
+                     </div>
+           </div>
+            <div id="upload" class="section">
                       <h2 >POST /upload/</h2>
                          <h3>Definition</h3>
                          <div>
                           <p>Route to upload a file passed in parameter</p>
                           <p>It will retrieve a hash Srting that will be used to reference this file on other routes</p>
+                         </div>
+                         <h3>Example</h3>
+                         <div role="tabpanel" class="tab-pane fade in">
+                            <pre><code class="language-bash">curl -F "file=@test.jpeg" http://localhost:3000/upload</code></pre>
                          </div>
                          <h3>Output</h3>
                          <ul class="nav nav-tabs" role="tablist">
@@ -144,12 +174,7 @@
                                <pre><code id="outputFileHash500" class="language-json"></code></pre>
                             </div>
                          </div>
-                         <h3>Example</h3>
-                         <div role="tabpanel" class="tab-pane fade in">
-                            <pre><code class="language-bash">curl -F "file=@test.jpeg" http://localhost:3000/upload</code></pre>
-                         </div>
                </div>
-               <h1>GET /read</h1>
                <div id="read_simple" class="section">
                   <h2 >GET /read/simple/:hash</h2>
                      <h3>Definition</h3>
@@ -158,7 +183,11 @@
                         <p>JSON output is structured in array of categories</p>
                         <p>Non exhaustive list of all metadata found</p>
                       </div>
-                     <h3>Output</h3>
+                      <h3>Example</h3>
+                      <div role="tabpanel" class="tab-pane fade in">
+                        <pre><code class="language-bash">curl http://localhost:3000/read/simple/6b72a79a3432f7990a5055bf03024109</code></pre>
+                      </div>
+                      <h3>Output</h3>
                      <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item active"><a href="#simple_output" aria-controls="simple_output" role="tab" data-toggle="tab" aria-expanded="true"><span class="text-success">•</span> 200 OK </a></li>
                         <li class="nav-item"><a href="#simple_not_found" aria-controls="simple_not_found" role="tab" data-toggle="tab" aria-expanded="false"><span class="text-danger">•</span> 404 Not Found </a></li>
@@ -175,10 +204,6 @@
                            <pre><code id="simpleOutput500" class="language-json"></code></pre>
                         </div>
                      </div>
-                     <h3>Example</h3>
-                     <div role="tabpanel" class="tab-pane fade in">
-                       <pre><code class="language-bash">curl http://localhost:3000/read/simple/6b72a79a3432f7990a5055bf03024109</code></pre>
-                     </div>
                 </div>
                <div id="read_full" class="section">
                   <h2>GET /read/full/:hash</h2>
@@ -188,7 +213,11 @@
                         <p>JSON output is structured in array of categories</p>
                         <p>Non exhaustive list of all metadata found</p>
                       </div>
-                     <h3>Output</h3>
+                      <h3>Example</h3>
+                      <div role="tabpanel" class="tab-pane fade in">
+                         <pre><code class="language-bash">curl http://localhost:3000/read/full/6b72a79a3432f7990a5055bf03024109</code></pre>
+                      </div>
+                      <h3>Output</h3>
                      <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item active"><a href="#full_output" aria-controls="full_output" role="tab" data-toggle="tab" aria-expanded="true"><span class="text-success">•</span> 200 OK </a></li>
                         <li class="nav-item"><a href="#full_not_found" aria-controls="full_not_found" role="tab" data-toggle="tab" aria-expanded="false"><span class="text-danger">•</span> 404 Not Found </a></li>
@@ -205,10 +234,6 @@
                            <pre><code id="fullOutput500" class="language-json"></code></pre>
                         </div>
                      </div>
-                     <h3>Example</h3>
-                     <div role="tabpanel" class="tab-pane fade in">
-                        <pre><code class="language-bash">curl http://localhost:3000/read/full/6b72a79a3432f7990a5055bf03024109</code></pre>
-                     </div>
                </div>
                <div id="read_raw" class="section">
                   <h2>GET /read/raw/:hash</h2>
@@ -218,7 +243,11 @@
                         <p> JSON output in not structured and the list of metadata is not known in advance</p>
                         <p>Exhaustive list of all metadata found</p>
                       </div>
-                     <h3>Output</h3>
+                      <h3>Example</h3>
+                      <div role="tabpanel" class="tab-pane fade in">
+                         <pre><code class="language-bash">curl http://localhost:3000/read/raw/6b72a79a3432f7990a5055bf03024109</code></pre>
+                     </div>
+                      <h3>Output</h3>
                      <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item active"><a href="#raw_output" aria-controls="raw_output" role="tab" data-toggle="tab" aria-expanded="true"><span class="text-success">•</span> 200 OK </a></li>
                         <li class="nav-item"><a href="#raw_not_found" aria-controls="raw_not_found" role="tab" data-toggle="tab" aria-expanded="false"><span class="text-danger">•</span> 404 Not Found </a></li>
@@ -235,10 +264,6 @@
                         <pre><code id="rawOutput500" class="language-json"></code></pre>
                         </div>
                      </div>
-                     <h3>Example</h3>
-                     <div role="tabpanel" class="tab-pane fade in">
-                        <pre><code class="language-bash">curl http://localhost:3000/read/raw/6b72a79a3432f7990a5055bf03024109</code></pre>
-                    </div>
                </div>
                <div id="copy" class="section">
                   <h2 >GET /copy/:hash_source/:hash_dest</h2>
@@ -276,7 +301,11 @@
                         <p>The output is a copy of the original file with EXIF metadata deleted</p>
                         <p>Note: Few of them cannot be deleted (e.g: length, width, megapixels)</p>
                       </div>
-                     <h3>Output</h3>
+                      <h3>Example</h3>
+                      <div role="tabpanel" class="tab-pane fade in">
+                        <pre><code class="language-bash">curl http://localhost:3000/delete/6b72a79a3432f7990a5055bf03024109</code></pre>
+                      </div>
+                         <h3>Output</h3>
                      <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item active"><a href="#delete_output" aria-controls="delete_output" role="tab" data-toggle="tab" aria-expanded="true"><span class="text-success">•</span> 200 OK </a></li>
                         <li class="nav-item"><a href="#delete_not_found" aria-controls="delete_not_found" role="tab" data-toggle="tab" aria-expanded="false"><span class="text-danger">•</span> 404 Not Found </a></li>
@@ -293,10 +322,6 @@
                            <pre><code id="deleteOutput500" class="language-json"></code></pre>
                         </div>
                      </div>
-                     <h3>Example</h3>
-                  <div role="tabpanel" class="tab-pane fade in">
-                    <pre><code class="language-bash">curl http://localhost:3000/delete/6b72a79a3432f7990a5055bf03024109</code></pre>
-                  </div>
                </div>
             </div>
          </div>
@@ -304,8 +329,9 @@
             <div class="container text-center">
                <!-- <a href="#"><i class="fa fa-linkedin"></i></a> !-->
                <p>
-                  API developped by Gaetan GOUZI
+                  API developed by Gaetan GOUZI
                   <a href="https://github.com/ggouzi" target="_blank"><i class="fa fa-2x fa-github"></i></a>
+                  and modified by Sami Salkosuo <a href="https://github.com/samisalkosuo" target="_blank"><i class="fa fa-2x fa-github"></i></a>
                </p>
             </div>
          </footer>

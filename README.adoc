@@ -20,24 +20,31 @@ EXIF API is provided as Docker image for easy consumption.
 * Run image in background:
 ** `docker run -d -name exif-api -p 3000:3000 exif-api`
 
-=== Use existing image
+=== Use existing
+
+* Run image in foreground:
+** `docker run -it --rm -p 3000:3000 kazhar/exif-api`
+* Run image in background:
+** `docker run -d -name exif-api -p 3000:3000 kazhar/exif-api`
 
 == Usage
 
-Check the https://samisalkosuo.github.io/exif-api/[API].
-
-- Upload image
-- Get EXIF data
+* Get all EXIF data from an image:
+** uploads image, extracts EXIF data and returns it as JSON
+** `curl -F "file=@test/test.JPG" http://127.0.0.1:3000/exifdata`
+* See https://samisalkosuo.github.io/exif-api/[API] for more.
 
 == Background
 
+Originally developed by https://github.com/ggouzi[Gaetan GOUZI].                  
+
 EXIF API is based on open source projects:
 
-* [Sinatra](https://github.com/sinatra/sinatra) - Opensource Ruby framework to create routes-based web applications
-* [ExifTool](https://www.sno.phy.queensu.ca/~phil/exiftool/) - Opensource CLI application for editing/reading EXIF metadata
+* https://github.com/sinatra/sinatra[Sinatra] - Opensource Ruby framework to create routes-based web applications
+* https://www.sno.phy.queensu.ca/~phil/exiftool/[ExifTool] - Opensource CLI application for editing/reading EXIF metadata
 
-EXIF API depends on [Ruby ExifTool wrapper](https://github.com/janfri/mini_exiftool) and other libraries listed in
-[Gemfile](Gemfile)
+EXIF API depends on https://github.com/janfri/mini_exiftool[Ruby ExifTool wrapper] and other libraries listed in
+link:src/Gemfile[Gemfile].
 
 == License
 

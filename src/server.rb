@@ -31,6 +31,31 @@ class ExifApi < Sinatra::Base
     end
   end
 
+  #post image and return all raw EXIF meta data
+  post '/exifdata/?' do
+    result = Utils.parseFileParam(params)
+    if result.nil?
+      tempfile = params[:file][:tempfile]
+      filename = params[:file][:filename]
+      begin
+        result = getRawExifInfo(tempfile)
+      rescue Exception => e
+        puts e.message
+        result = Utils.createJsonBody(500, "Internal server error: Unable to retrieve exif data", true)
+      end
+      begin
+        #delete uploaded file
+        File.delete(tempfile) if File.exist?(tempfile)
+      rescue Exception => e
+        puts "Delet uploaded file failed"
+        puts e.message
+      end
+    end
+    status Utils.getStatusCode(result)
+    result.to_json
+
+  end
+
   post '/upload/?' do
     result = Utils.parseFileParam(params)
     if result.nil?

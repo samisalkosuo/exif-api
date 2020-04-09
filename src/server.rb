@@ -7,14 +7,15 @@ EXCLUDE_LIST = [ 'thumbnail_image', 'data_dump' ]
 # All different ways to represent a null value
 NIL_VALUES = [ "", " ", "Unknown", "Unknown ()", "n/a", "null" ]
 ENV["SAVE_DIR"] = "tmp"
-LIMIT_FILE_SIZE = 65*1024 # 65 MB MAX
+LIMIT_FILE_SIZE = 128*1024 # 128 MB MAX
 PORT = 3000
 
 
 class ExifApi < Sinatra::Base
   set :port, PORT
   set :public_folder, 'docs'
-
+  set :bind, "0.0.0.0"
+  
   before do
     content_type :json
   end

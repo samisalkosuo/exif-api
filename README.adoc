@@ -1,0 +1,44 @@
+= EXIF API
+
+== Purpose
+
+This API provides ways to retrieve/delete/copy EXIF metadata from pictures.
+
+https://samisalkosuo.github.io/exif-api/[API Documentation]
+
+EXIF API is provided as Docker image for easy consumption.
+
+== Docker image
+
+=== Build your own
+
+* Clone this repository.
+* Build Docker image:
+** `docker build -t exif-api .`
+* Run image in foreground:
+** `docker run -it --rm -p 3000:3000 exif-api`
+* Run image in background:
+** `docker run -d -name exif-api -p 3000:3000 exif-api`
+
+=== Use existing image
+
+== Usage
+
+Check the https://samisalkosuo.github.io/exif-api/[API].
+
+- Upload image
+- Get EXIF data
+
+== Background
+
+EXIF API is based on open source projects:
+
+* [Sinatra](https://github.com/sinatra/sinatra) - Opensource Ruby framework to create routes-based web applications
+* [ExifTool](https://www.sno.phy.queensu.ca/~phil/exiftool/) - Opensource CLI application for editing/reading EXIF metadata
+
+EXIF API depends on [Ruby ExifTool wrapper](https://github.com/janfri/mini_exiftool) and other libraries listed in
+[Gemfile](Gemfile)
+
+== License
+
+The MIT License (MIT)

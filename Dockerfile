@@ -10,6 +10,9 @@ WORKDIR /home/exifapi
 COPY src/Gemfile* .
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 
+# Copy docs
+COPY ./docs/ ./docs/
+
 # Copy sources
 COPY ./src/ .
 

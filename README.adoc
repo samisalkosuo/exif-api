@@ -25,7 +25,7 @@ EXIF API is provided as Docker image for easy consumption.
 * Run image in foreground:
 ** `docker run -it --rm -p 3000:3000 kazhar/exif-api`
 * Run image in background:
-** `docker run -d -name exif-api -p 3000:3000 kazhar/exif-api`
+** `docker run -d --name exif-api -p 3000:3000 kazhar/exif-api`
 
 == Usage
 
